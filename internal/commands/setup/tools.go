@@ -1,10 +1,9 @@
-package commands
+package setup
 
 import (
-	"github.com/spf13/cobra"
-
 	"github.com/Clink-n-Clank/Eitri/internal/handler"
 	"github.com/Clink-n-Clank/Eitri/internal/log"
+	"github.com/spf13/cobra"
 )
 
 // InstallToolsCMD represents the new command.

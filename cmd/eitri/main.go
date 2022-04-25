@@ -1,9 +1,12 @@
 package main
 
 import (
-	"github.com/Clink-n-Clank/Eitri/internal/commands"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/mock"
+	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/wire"
+	"github.com/Clink-n-Clank/Eitri/internal/commands/setup"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -18,7 +21,11 @@ var (
 // init contains list of commands of ScanX framework
 func init() {
 	// Setup commands
-	rootCmd.AddCommand(commands.InstallToolsCMD)
+	rootCmd.AddCommand(setup.InstallToolsCMD)
+
+	// Generate commands
+	rootCmd.AddCommand(mock.GenerateMockCMD)
+	rootCmd.AddCommand(wire.GenerateWireBinCMD)
 }
 
 func main() {

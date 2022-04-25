@@ -11,28 +11,29 @@ func TestFindFilePath(t *testing.T) {
 	stubFileName := "stub.txt"
 	duplicateFileName := "duplicate.txt"
 	relativeRootPath := "../.."
-	testCases := []struct{
-		name string
-		root string
-		fileName string
+
+	testCases := []struct {
+		name         string
+		root         string
+		fileName     string
 		expectedPath string
-		expectedErr bool
+		expectedErr  bool
 	}{
 		{
-			name: "should return file path",
-			root: relativeRootPath,
-			fileName: stubFileName,
+			name:         "should return file path",
+			root:         relativeRootPath,
+			fileName:     stubFileName,
 			expectedPath: fmt.Sprintf("%s/assets/tests/files/search/stub.txt", relativeRootPath),
 		},
 		{
-			name: "should return duplicate error",
-			root: relativeRootPath,
-			fileName: duplicateFileName,
+			name:        "should return duplicate error",
+			root:        relativeRootPath,
+			fileName:    duplicateFileName,
 			expectedErr: true,
 		},
 		{
-			name: "should return path error",
-			root: "non_existing_path",
+			name:        "should return path error",
+			root:        "non_existing_path",
 			expectedErr: true,
 		},
 	}
@@ -42,9 +43,11 @@ func TestFindFilePath(t *testing.T) {
 			if hasErr {
 				fmt.Println("there was an error")
 			}
-			fmt.Printf("This is current folder: %s", folder)
-			path, err := FindFilePath(tc.root, tc.fileName)
-			fmt.Printf("this is the path: %s", path)
+
+			t.Logf("This is current folder: %s\n", folder)
+			path, err := FindFilePath(tc.root, tc.fileName, []string{"bendor"})
+			t.Logf("this is the path: %s\n", path)
+
 			assert.Equal(t, tc.expectedPath, path)
 			assert.Equal(t, tc.expectedErr, err != nil)
 		})

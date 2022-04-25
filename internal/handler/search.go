@@ -5,6 +5,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/Clink-n-Clank/Eitri/internal/log"
 )
@@ -44,15 +45,24 @@ func (r FindError) IsDuplicateFile() bool {
 }
 
 // FindFilePath looks for fileName in root and all it's subdirectories, returns path of fileName if found.
-func FindFilePath(root, fileName string) (string, error) {
+func FindFilePath(root, fileName string, excludeNames []string) (string, error) {
 	var files []string
+
 	err := filepath.Walk(root, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
+
+		for _, n := range excludeNames {
+			if strings.Contains(path, n) {
+				return nil
+			}
+		}
+
 		if info.Name() == fileName {
 			files = append(files, path)
 		}
+
 		return nil
 	})
 
@@ -106,7 +116,7 @@ func FindEntryPointPath() (string, bool) {
 		return "", true
 	}
 
-	mainPath, err := FindFilePath(cmdPath, fileEntry)
+	mainPath, err := FindFilePath(cmdPath, fileEntry, []string{})
 	if hasErr {
 		log.PrintError(err.Error())
 		return "", true
