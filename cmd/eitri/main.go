@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/mock"
+	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/proto"
 	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/wire"
 	"github.com/Clink-n-Clank/Eitri/internal/commands/setup"
 	"github.com/spf13/cobra"
@@ -26,6 +27,7 @@ func init() {
 	// Generate commands
 	rootCmd.AddCommand(mock.GenerateMockCMD)
 	rootCmd.AddCommand(wire.GenerateWireBinCMD)
+	rootCmd.AddCommand(proto.GenerateEnvoyTranscodingCMD)
 }
 
 func main() {
