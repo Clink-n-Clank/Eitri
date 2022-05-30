@@ -23,7 +23,7 @@ var (
 		Use:     "mock",
 		Short:   "Generate Mock: Generated mock code from config file: " + mockGenCfgFile,
 		Long:    "Generate Mock: Will create and use mock manager to generate mock files from configuration " + mockGenCfgFile,
-		Example: " eitri mock \n eitri mock --config cfg/" + mockGenCfgFile,
+		Example: "Eitri mock \n Eitri mock --config cfg/" + mockGenCfgFile,
 		Run:     runMockGen,
 	}
 

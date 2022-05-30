@@ -7,7 +7,8 @@
 
 # Test binary, built with `go test -c`
 *.test
-cmd/eitri/eitri
+cmd/Eitri/eitri
+cmd/Eitri/executable
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out

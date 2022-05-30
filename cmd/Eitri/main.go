@@ -13,7 +13,7 @@ import (
 var (
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
-		Use:   "eitri",
+		Use:   "Eitri",
 		Short: "Eitri Command-line toolsets.",
 		Long:  `Eitri Command-line toolsets that help maintain code base and be productive.`,
 	}
