@@ -12,7 +12,7 @@ import (
 
 const (
 	folderEntry = "cmd"
-	fileEntry   = "main.go"
+	fileEntry   = "root.go"
 
 	FindErrorFileGeneral FindErrorType = iota
 	FindErrorFileNotFound

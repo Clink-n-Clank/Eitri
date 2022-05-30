@@ -1,8 +1,6 @@
-package main
+package eitri
 
 import (
-	"os"
-
 	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/mock"
 	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/proto"
 	"github.com/Clink-n-Clank/Eitri/internal/commands/generate/wire"
@@ -13,14 +11,14 @@ import (
 var (
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
-		Use:   "Eitri",
-		Short: "Eitri Command-line toolsets.",
-		Long:  `Eitri Command-line toolsets that help maintain code base and be productive.`,
+		Use:   "eitri",
+		Short: "eitri Command-line toolsets.",
+		Long:  `eitri Command-line toolsets that help maintain code base and be productive.`,
 	}
 )
 
-// init contains list of commands of ScanX framework
-func init() {
+// ExecCommandTool eitri commands
+func ExecCommandTool() error {
 	// Setup commands
 	rootCmd.AddCommand(setup.InstallToolsCMD)
 
@@ -28,10 +26,6 @@ func init() {
 	rootCmd.AddCommand(mock.GenerateMockCMD)
 	rootCmd.AddCommand(wire.GenerateWireBinCMD)
 	rootCmd.AddCommand(proto.GenerateEnvoyTranscodingCMD)
-}
 
-func main() {
-	if rootCmd.Execute() != nil {
-		os.Exit(1)
-	}
+	return rootCmd.Execute()
 }
