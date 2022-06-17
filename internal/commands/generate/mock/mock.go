@@ -1,11 +1,13 @@
 package mock
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"os/exec"
 	"path"
 
+	"github.com/Clink-n-Clank/Eitri/internal/commands/setup"
 	"github.com/Clink-n-Clank/Eitri/internal/handler"
 	"github.com/Clink-n-Clank/Eitri/internal/log"
 	"github.com/spf13/cobra"
@@ -53,6 +55,11 @@ func init() {
 }
 
 func runMockGen(c *cobra.Command, args []string) {
+	_, cmdErr := exec.LookPath("gomockhandler")
+	if cmdErr != nil {
+		setup.InstallMockHandler()
+	}
+
 	if pErr := c.ParseFlags(args); pErr != nil {
 		log.PrintError(fmt.Sprintf("failed to parse command flags, error: %s", pErr.Error()))
 		return
@@ -65,7 +72,7 @@ func runMockGen(c *cobra.Command, args []string) {
 		return
 	}
 
-	if v, _ := c.Flags().GetString(mockGenFlagConfigPath); v != mockGenFlagConfigPathDefaultVal {
+	if v, vErr := c.Flags().GetString(mockGenFlagConfigPath); vErr != nil && v != mockGenFlagConfigPathDefaultVal {
 		basePathToConfig = path.Clean(path.Join(cPath, v))
 	}
 	if len(basePathToConfig) == 0 {
@@ -79,7 +86,7 @@ func runMockGen(c *cobra.Command, args []string) {
 
 	log.PrintInfo("Managing project mocks...")
 
-	cmd := exec.Command("gomockhandler", fmt.Sprintf("-config=%s", basePathToConfig), "mockgen")
+	cmd := exec.CommandContext(context.Background(), "gomockhandler", fmt.Sprintf("-config=%s", basePathToConfig), "mockgen") //nolint:gosec
 	cmd.Dir = cPath
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
