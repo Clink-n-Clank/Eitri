@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/Clink-n-Clank/Eitri/internal/commands/setup"
 	"github.com/Clink-n-Clank/Eitri/internal/handler"
 	"github.com/Clink-n-Clank/Eitri/internal/log"
 	"github.com/spf13/cobra"
@@ -26,7 +27,7 @@ func runCompile(_ *cobra.Command, _ []string) {
 	if hasErrToGetEntryFolder {
 		return
 	}
-
+	log.PrintInfo(fmt.Sprintf("Entry path: %s...", entryFolder))
 	if runWire(entryFolder) {
 		runBuild(entryFolder)
 	}
@@ -34,6 +35,11 @@ func runCompile(_ *cobra.Command, _ []string) {
 
 func runWire(entryFolder string) bool {
 	log.PrintInfo("Compiling Google Wire DI...")
+
+	_, cmdErr := exec.LookPath("wire")
+	if cmdErr != nil {
+		setup.InstallWire()
+	}
 
 	cmd := exec.Command("wire")
 	cmd.Dir = entryFolder

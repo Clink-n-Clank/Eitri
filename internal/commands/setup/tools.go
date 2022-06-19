@@ -16,11 +16,11 @@ var InstallToolsCMD = &cobra.Command{
 func runInstallTools(_ *cobra.Command, _ []string) {
 	log.PrintInfo("Installing and Updating depended on tools for ScanX...")
 
-	installWire()
-	installMockHandler()
+	InstallWire()
+	InstallMockHandler()
 }
 
-func installWire() {
+func InstallWire() {
 	// wire is automated initialization of dependency injection created @Google https://go.dev/blog/wire
 	const wire = "github.com/google/wire/cmd/wire@latest"
 
@@ -31,7 +31,7 @@ func installWire() {
 	}
 }
 
-func installMockHandler() {
+func InstallMockHandler() {
 	const (
 		mockGen     = "github.com/golang/mock/mockgen@latest"
 		mockManager = "github.com/sanposhiho/gomockhandler@latest"
